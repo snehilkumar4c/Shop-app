@@ -58,7 +58,7 @@ class CartItem extends StatelessWidget {
               'Do you want to remove the items?',
             ),
             actions: [
-              FlatButton(
+              TextButton(
                 child: Text(
                   'NO',
                   style: TextStyle(color: Colors.teal),
@@ -67,7 +67,7 @@ class CartItem extends StatelessWidget {
                   Navigator.of(context).pop(false);
                 },
               ),
-              FlatButton(
+              TextButton(
                 child: Text(
                   'YES',
                   style: TextStyle(color: Colors.teal),
