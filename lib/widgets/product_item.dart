@@ -20,6 +20,7 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context);
     final cart = Provider.of<Cart>(context, listen: false);
+    // final snackbar = SnackBar(content: Text('Item removed from Favourites.'));
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
@@ -45,6 +46,16 @@ class ProductItem extends StatelessWidget {
                   ),
                   onPressed: () {
                     product.toggleFavouriteStatus();
+                    Scaffold.of(context).hideCurrentSnackBar();
+                    Scaffold.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Added Item to Favourites '),
+                        duration: Duration(
+                          seconds: 2,
+                        ),
+                      ),
+                    );
+                    // ScaffoldMessenger.of(context).showSnackBar(snackbar);
                   },
                   color: Theme.of(context).accentColor,
                 ),
