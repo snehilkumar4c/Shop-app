@@ -68,8 +68,31 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  void addProduct() {
+  void addProduct(Product product) {
     // _items.add(value);
+    final addedProduct = Product(
+        id: DateTime.now().toString(),
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        imageUrl: product.imageUrl);
+    _items.add(addedProduct);
+    // _items.insert(0, addedProduct); it also does the same as add() function does.
+    notifyListeners();
+  }
+
+  void updateProduct(String id, Product newProduct) {
+    final prodIndex = _items.indexWhere((prod) => prod.id == id);
+    if (prodIndex >= 0) {
+      _items[prodIndex] = newProduct;
+      notifyListeners();
+    } else {
+      print('...');
+    }
+  }
+
+  void deleteProduct(String id) {
+    _items.removeWhere((prod) => prod.id == id);
     notifyListeners();
   }
 }
