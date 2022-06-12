@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_final_fields
-
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import './product.dart';
 // import 'package:shop/screens/product_detail_screen.dart';
 
@@ -70,15 +71,31 @@ class Products with ChangeNotifier {
 
   void addProduct(Product product) {
     // _items.add(value);
-    final addedProduct = Product(
-        id: DateTime.now().toString(),
-        title: product.title,
-        description: product.description,
-        price: product.price,
-        imageUrl: product.imageUrl);
-    _items.add(addedProduct);
-    // _items.insert(0, addedProduct); it also does the same as add() function does.
-    notifyListeners();
+    final url = Uri.parse(
+        'https://shop-c8777-default-rtdb.firebaseio.com/products.json');
+    http
+        .post(
+      url,
+      body: json.encode({
+        'title': product.title,
+        'description': product.description,
+        'imageUrl': product.imageUrl,
+        'price': product.price,
+        'isFavourite': product.isFavourite,
+      }),
+    )
+        .then((response) {
+      // print(json.decode(response.body));
+      final addedProduct = Product(
+          id: json.decode(response.body)['name'],
+          title: product.title,
+          description: product.description,
+          price: product.price,
+          imageUrl: product.imageUrl);
+      _items.add(addedProduct);
+      // _items.insert(0, addedProduct); it also does the same as add() function does.
+      notifyListeners();
+    });
   }
 
   void updateProduct(String id, Product newProduct) {
