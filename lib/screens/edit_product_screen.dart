@@ -102,7 +102,23 @@ class _EditProductScreenState extends State<EditProductScreen> {
     } else {
       Provider.of<Products>(context, listen: false)
           .addProduct(_editedProduct)
-          .then((_) {
+          .catchError((error) {
+        return showDialog<Null>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text('title occured'),
+            content: Text('something went wrong'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }).then((_) {
         setState(() {
           _isLoading = false;
         });
@@ -111,6 +127,16 @@ class _EditProductScreenState extends State<EditProductScreen> {
     }
     // Navigator.of(context).pop();
   }
+
+  final ButtonStyle flatButtonStyle = TextButton.styleFrom(
+      primary: Colors.transparent,
+      minimumSize: Size(88, 36),
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(2.0),
+        ),
+      ));
 
   @override
   Widget build(BuildContext context) {
