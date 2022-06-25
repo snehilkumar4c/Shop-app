@@ -21,7 +21,7 @@ class CartItem extends StatelessWidget {
   // const CartItem({ Key? key }) : super(key: key);
   final ButtonStyle flatButtonStyle = TextButton.styleFrom(
       primary: Colors.transparent,
-      minimumSize: Size(88, 36),
+      minimumSize: Size(88, 35),
       padding: EdgeInsets.symmetric(horizontal: 16.0),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
