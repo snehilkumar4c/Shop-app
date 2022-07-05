@@ -10,6 +10,7 @@ class CartItem extends StatelessWidget {
   final String title;
   final double price;
   final int quantity;
+
   CartItem(
     this.title,
     this.productId,
@@ -19,6 +20,7 @@ class CartItem extends StatelessWidget {
   );
 
   // const CartItem({ Key? key }) : super(key: key);
+  // basically the alternative for the deprecated FlatButton
   final ButtonStyle flatButtonStyle = TextButton.styleFrom(
       primary: Colors.transparent,
       minimumSize: Size(88, 35),
@@ -58,6 +60,7 @@ class CartItem extends StatelessWidget {
               'Do you want to remove the items?',
             ),
             actions: [
+              // the TextButton declared above is used here instead of FlatButton
               TextButton(
                 child: Text(
                   'NO',
